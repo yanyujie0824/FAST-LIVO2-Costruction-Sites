@@ -16,11 +16,11 @@ sudo apt install build-essential cmake git libeigen3-dev libpcl-dev \
   ros-noetic-rosbag ros-noetic-rviz
 ```
 
-Install a compatible non-templated version of Sophus before building. [Upstream Sophus requirements](https://github.com/hku-mars/FAST-LIVO2#23-sophus)
+Install a compatible version of Sophus before building.
 
 ## Installation
 
-Use a catkin workspace containing a single ROS package named `fast_livo`. Use your authenticated GitHub account to clone this private repository.
+Use a catkin workspace containing a single ROS package named `fast_livo` and clone this private repository.
 
 ```bash
 source /opt/ros/noetic/setup.bash
