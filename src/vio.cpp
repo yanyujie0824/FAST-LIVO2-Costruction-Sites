@@ -12,6 +12,8 @@ which is included as part of this source code package.
 
 #include "vio.h"
 
+#include <filesystem>
+
 VIOManager::VIOManager()
 {
   // downSizeFilter.setLeafSize(0.2, 0.2, 0.2);
@@ -1457,7 +1459,14 @@ void VIOManager::projectPatchFromRefToCur(const unordered_map<VOXEL_LOCATION, Vo
   // if(new_frame_->id_ != 2) return; //124
 
   int patch_size = 25;
-  string dir = string(ROOT_DIR) + "Log/ref_cur_combine/";
+  const std::string dir = DEBUG_FILE_DIR("ref_cur_combine/");
+  std::error_code error;
+  std::filesystem::create_directories(dir, error);
+  if (error)
+  {
+    ROS_WARN_STREAM_THROTTLE(5.0, "Cannot create output directory " << dir << ": " << error.message());
+    return;
+  }
 
   cv::Mat result = cv::Mat::zeros(height, width, CV_8UC1);
   cv::Mat result_normal = cv::Mat::zeros(height, width, CV_8UC1);

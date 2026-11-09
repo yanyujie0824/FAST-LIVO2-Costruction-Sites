@@ -13,6 +13,7 @@ which is included as part of this source code package.
 #include "LIVMapper.h"
 
 #include <algorithm>
+#include <filesystem>
 
 LIVMapper::LIVMapper(ros::NodeHandle &nh)
     : extT(0, 0, 0),
@@ -219,6 +220,16 @@ void LIVMapper::initializeComponents()
 
 void LIVMapper::initializeFiles() 
 {
+  const auto create_output_directory = [](const std::string &directory)
+  {
+    std::error_code error;
+    std::filesystem::create_directories(directory, error);
+    if (error)
+    {
+      ROS_WARN_STREAM("Cannot create output directory " << directory << ": " << error.message());
+    }
+  };
+
   if (pcd_save_en && colmap_output_en)
   {
       const std::string folderPath = std::string(ROOT_DIR) + "/scripts/colmap_output.sh";
@@ -237,9 +248,24 @@ void LIVMapper::initializeFiles()
           return;
       }
   }
-  if(colmap_output_en) fout_points.open(std::string(ROOT_DIR) + "Log/Colmap/sparse/0/points3D.txt", std::ios::out);
-  if(pcd_save_en) fout_lidar_pos.open(std::string(ROOT_DIR) + "Log/pcd/lidar_poses.txt", std::ios::out);
-  if(img_save_en) fout_visual_pos.open(std::string(ROOT_DIR) + "Log/image/image_poses.txt", std::ios::out);
+  create_output_directory(DEBUG_FILE_DIR(""));
+  if (pose_output_en) create_output_directory(DEBUG_FILE_DIR("result"));
+  if (colmap_output_en)
+  {
+    create_output_directory(DEBUG_FILE_DIR("Colmap/images"));
+    create_output_directory(DEBUG_FILE_DIR("Colmap/sparse/0"));
+    fout_points.open(DEBUG_FILE_DIR("Colmap/sparse/0/points3D.txt"), std::ios::out);
+  }
+  if (pcd_save_en)
+  {
+    create_output_directory(DEBUG_FILE_DIR("pcd"));
+    fout_lidar_pos.open(DEBUG_FILE_DIR("pcd/lidar_poses.txt"), std::ios::out);
+  }
+  if (img_save_en)
+  {
+    create_output_directory(DEBUG_FILE_DIR("image"));
+    fout_visual_pos.open(DEBUG_FILE_DIR("image/image_poses.txt"), std::ios::out);
+  }
   fout_pre.open(DEBUG_FILE_DIR("mat_pre.txt"), std::ios::out);
   fout_out.open(DEBUG_FILE_DIR("mat_out.txt"), std::ios::out);
 }

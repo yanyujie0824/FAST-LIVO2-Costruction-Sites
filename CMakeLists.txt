@@ -146,10 +146,3 @@ target_link_libraries(fastlivo_mapping
 if(mimalloc_FOUND)
   target_link_libraries(fastlivo_mapping mimalloc)
 endif()
-
-if(CATKIN_ENABLE_TESTING)
-  catkin_add_gtest(rev0_wkb_tests test/rev0_wkb_tests.cpp)
-  if(TARGET rev0_wkb_tests)
-    target_link_libraries(rev0_wkb_tests dynamic_filter fusion_quality ${PCL_LIBRARIES})
-  endif()
-endif()

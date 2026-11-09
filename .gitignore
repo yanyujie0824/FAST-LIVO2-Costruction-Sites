@@ -8,14 +8,4 @@ __pycache__/
 *.bag
 *.bag.active
 
-/Log/imu.txt
-/Log/mat_*.txt
-/Log/result/*
-!/Log/result/.gitkeep
-!/Log/result/ntu_viral/
-/Log/image/*
-!/Log/image/.gitkeep
-/Log/pcd/*
-!/Log/pcd/.gitkeep
-/Log/Colmap/images/
-/Log/ref_cur_combine/
+/Log/
