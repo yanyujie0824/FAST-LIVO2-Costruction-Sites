@@ -35,8 +35,6 @@ catkin_make -j4 -DPYTHON_EXECUTABLE=/usr/bin/python3
 source devel/setup.bash
 ```
 
-If CMake cannot find Sophus, pass `-DSophus_DIR=/path/to/sophus/cmake` to `catkin_make`, using the directory that contains `SophusConfig.cmake`.
-
-Sensor calibration and topic settings are under [config/](config/), with ROS launch files under [launch/](launch/). The `dynamic_filter/enable` and `adaptive_weight/enable` parameters can be set independently. The node creates its runtime output directories under `Log/` as needed.
+Sensor calibration and topic settings are under [config/](config/), with ROS launch files under [launch/](launch/). The `dynamic_filter/enable` and `adaptive_weight/enable` parameters can be set independently. 
 
 Based on [FAST-LIVO2](https://github.com/hku-mars/FAST-LIVO2) by Chunran Zheng and contributors. See the [GPL v2 license](LICENSE).
