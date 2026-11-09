@@ -29,7 +29,6 @@ mkdir -p "$WORKSPACE/src"
 cd "$WORKSPACE/src"
 git clone https://github.com/yanyujie0824/FAST-LIVO2-Costruction-Sites.git
 git clone https://github.com/xuankuzcr/rpg_vikit.git
-git -C rpg_vikit checkout --detach 6c886c8e5d83997806e00294826d528cea3581dd
 
 cd "$WORKSPACE"
 catkin_make -j4 -DPYTHON_EXECUTABLE=/usr/bin/python3
